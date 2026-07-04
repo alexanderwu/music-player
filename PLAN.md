@@ -125,8 +125,8 @@ We chose **(1)**, and here's the full trade-off so you know what you bought:
 
 **Scaffold:**
 ```bash
-npm create tauri-app@latest music-player -- --template svelte-ts
-cd music-player && npm install && npm run tauri dev
+pnpm create tauri-app@latest music-player --template svelte-ts
+cd music-player && pnpm install && pnpm tauri dev
 ```
 
 **Checkpoint:** a native window opens showing the starter page, and editing `src/App.svelte` hot-reloads it. 
@@ -242,8 +242,8 @@ Each phase ends with a **checkpoint** (something observable working) and a **com
 
 **Goal:** an artifact you can install and give to a friend.
 
-1. `npm run tauri build` — produces platform bundles (`.dmg`, `.msi`/NSIS, `.deb`/`.AppImage`). Cross-compilation is *not* really a thing here (each OS builds its own) — that's what CI matrices are for; add a GitHub Actions workflow using `tauri-apps/tauri-action` as the canonical solution.
-2. App icon: one 1024×1024 PNG → `npm run tauri icon` generates every platform format.
+1. `pnpm tauri build` — produces platform bundles (`.dmg`, `.msi`/NSIS, `.deb`/`.AppImage`). Cross-compilation is *not* really a thing here (each OS builds its own) — that's what CI matrices are for; add a GitHub Actions workflow using `tauri-apps/tauri-action` as the canonical solution.
+2. App icon: one 1024×1024 PNG → `pnpm tauri icon` generates every platform format.
 3. Read the output sizes and smile (single-digit MB).
 4. **Learn what you're skipping and why it exists:** code signing & notarization (macOS Gatekeeper / Windows SmartScreen will warn on unsigned apps — signing costs money/certificates; fine to skip for personal use, mandatory for real distribution) and auto-updates (`tauri-plugin-updater`, needs signing) — both stretch goals.
 

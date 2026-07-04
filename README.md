@@ -25,22 +25,23 @@ learning-first plan in [PLAN.md](PLAN.md).
 
 ## Development
 
-Prerequisites: [Rust](https://rustup.rs), Node.js ≥ 20, and the Tauri
+Prerequisites: [Rust](https://rustup.rs), Node.js ≥ 20,
+[pnpm](https://pnpm.io), and the Tauri
 [platform dependencies](https://tauri.app/start/prerequisites/).
 
 ```bash
-npm install
-npm run tauri dev
+pnpm install
+pnpm tauri dev
 ```
 
 Useful scripts:
 
 | Command             | What it does                          |
 | ------------------- | ------------------------------------- |
-| `npm run tauri dev` | Run the app with hot reload           |
-| `npm run check`     | Type-check the frontend (svelte-check)|
-| `npm run build`     | Build the frontend bundle             |
-| `npm run tauri build` | Build installable bundles (`.deb`/`.AppImage`/`.dmg`/`.msi`) |
+| `pnpm tauri dev`    | Run the app with hot reload           |
+| `pnpm check`        | Type-check the frontend (svelte-check)|
+| `pnpm build`        | Build the frontend bundle             |
+| `pnpm tauri build`  | Build installable bundles (`.deb`/`.AppImage`/`.dmg`/`.msi`) |
 
 ## Architecture
 
