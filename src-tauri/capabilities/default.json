@@ -1,0 +1,12 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "What the main window's frontend is allowed to ask the core to do. Every native ability the webview uses must be granted here — a compromised frontend can only do what this file allows.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "dialog:allow-open",
+    "dialog:allow-confirm",
+    "store:default"
+  ]
+}
