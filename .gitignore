@@ -1,0 +1,12 @@
+# Node
+node_modules/
+dist/
+
+# Tauri / Rust
+src-tauri/target/
+src-tauri/gen/
+
+# Editor
+.vscode/
+.idea/
+.DS_Store

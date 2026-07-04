@@ -1,0 +1,126 @@
+/* Theme via CSS variables. Light is the default; dark kicks in via
+   prefers-color-scheme, and an explicit data-theme attribute (set from
+   Settings) overrides the system preference in either direction. */
+
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --border: #e2e2e6;
+  --hover: #ececf0;
+  --active: #e2e8f8;
+  --text: #1c1c21;
+  --text-dim: #71717a;
+  --accent: #4f6ef7;
+  --danger: #c62838;
+  --danger-bg: #fbe4e7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121216;
+    --surface: #1a1a20;
+    --border: #2a2a32;
+    --hover: #24242c;
+    --active: #23283a;
+    --text: #e8e8ec;
+    --text-dim: #8f8f9a;
+    --accent: #7a92ff;
+    --danger: #ff6b7a;
+    --danger-bg: #3a2026;
+  }
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --border: #e2e2e6;
+  --hover: #ececf0;
+  --active: #e2e8f8;
+  --text: #1c1c21;
+  --text-dim: #71717a;
+  --accent: #4f6ef7;
+  --danger: #c62838;
+  --danger-bg: #fbe4e7;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121216;
+  --surface: #1a1a20;
+  --border: #2a2a32;
+  --hover: #24242c;
+  --active: #23283a;
+  --text: #e8e8ec;
+  --text-dim: #8f8f9a;
+  --accent: #7a92ff;
+  --danger: #ff6b7a;
+  --danger-bg: #3a2026;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+input,
+button,
+select {
+  user-select: auto;
+}
+
+button.primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.primary:hover {
+  filter: brightness(1.08);
+}
+
+button.primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
