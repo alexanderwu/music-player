@@ -1,4 +1,6 @@
 <script lang="ts">
+  // Native confirm dialog — window.confirm() is unreliable inside webviews.
+  import { confirm } from "@tauri-apps/plugin-dialog";
   import { ui, showLibrary } from "../state/ui.svelte";
   import {
     createPlaylist,
@@ -41,7 +43,7 @@
   }
 
   async function remove(id: number, name: string) {
-    if (confirm(`Delete playlist “${name}”?`)) {
+    if (await confirm(`Delete playlist “${name}”?`, { kind: "warning" })) {
       await deletePlaylist(id);
       if (ui.view === "playlist" && playlists.activeId == null) showLibrary();
     }

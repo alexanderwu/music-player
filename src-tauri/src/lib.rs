@@ -6,6 +6,10 @@ mod tray;
 use tauri::{Manager, WindowEvent};
 use tauri_plugin_store::StoreExt;
 
+/// Whether the system tray came up. Close-to-tray is only safe when there is
+/// actually a tray to reopen the window from.
+struct TrayActive(bool);
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -30,7 +34,15 @@ pub fn run() {
 
             app.manage(db);
 
-            tray::setup(app.handle())?;
+            // A missing tray host (some Linux desktops) shouldn't kill the app.
+            let tray_active = match tray::setup(app.handle()) {
+                Ok(()) => true,
+                Err(error) => {
+                    eprintln!("tray unavailable: {error}");
+                    false
+                }
+            };
+            app.manage(TrayActive(tray_active));
 
             #[cfg(desktop)]
             setup_media_keys(app.handle());
@@ -41,14 +53,14 @@ pub fn run() {
             // Close-to-tray: intercept the close request and hide instead,
             // unless the user turned the setting off. Quit lives in the tray.
             if let WindowEvent::CloseRequested { api, .. } = event {
-                let close_to_tray = window
-                    .app_handle()
+                let app = window.app_handle();
+                let close_to_tray = app
                     .store("settings.json")
                     .ok()
                     .and_then(|store| store.get("closeToTray"))
                     .and_then(|value| value.as_bool())
                     .unwrap_or(true);
-                if close_to_tray {
+                if close_to_tray && app.state::<TrayActive>().0 {
                     let _ = window.hide();
                     api.prevent_close();
                 }

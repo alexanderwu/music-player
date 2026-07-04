@@ -71,9 +71,9 @@
     if (!menu) return;
     const track = menu.track;
     menu = null;
-    const name = prompt("New playlist name:", "New playlist");
-    if (!name?.trim()) return;
-    const playlist = await createPlaylist(name.trim());
+    // No text-input dialogs in webviews — create with a default name;
+    // double-click in the sidebar renames.
+    const playlist = await createPlaylist(`New playlist ${playlists.all.length + 1}`);
     await addToPlaylist(playlist.id, [track.id]);
   }
 

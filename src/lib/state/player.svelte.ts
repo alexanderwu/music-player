@@ -42,6 +42,10 @@ audio.addEventListener("timeupdate", () => {
 audio.addEventListener("loadedmetadata", () => {
   player.duration = audio.duration;
   consecutiveErrors = 0;
+  // A previously failing track that loads now (e.g. the file came back)
+  // sheds its "unplayable" badge.
+  const track = currentTrack();
+  if (track) player.errorTrackIds.delete(track.id);
 });
 
 audio.addEventListener("play", () => (player.isPlaying = true));

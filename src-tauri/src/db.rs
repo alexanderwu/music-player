@@ -23,6 +23,9 @@ pub fn init(app: &AppHandle) -> Result<Db, Box<dyn std::error::Error>> {
     std::fs::create_dir_all(&dir)?;
     let conn = Connection::open(dir.join("library.db"))?;
     conn.pragma_update(None, "foreign_keys", "ON")?;
+    // WAL keeps the many small upserts of a scan from fsync-ing one by one.
+    let _ = conn.pragma_update(None, "journal_mode", "WAL");
+    let _ = conn.pragma_update(None, "synchronous", "NORMAL");
     migrate(&conn)?;
     Ok(Db(Mutex::new(conn)))
 }
